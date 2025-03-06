@@ -117,84 +117,92 @@ export function AnalyticsDashboard() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
+        <Card className="overflow-hidden border-none shadow-md bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Model Accuracy</CardTitle>
-            <Brain className="h-4 w-4 text-muted-foreground" />
+            <div className="h-8 w-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
+              <Brain className="h-4 w-4 text-blue-700 dark:text-blue-300" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{(latestAccuracy * 100).toFixed(1)}%</div>
-            <div className="flex items-center mt-1">
+            <div className="text-3xl font-bold text-blue-700 dark:text-blue-300">{(latestAccuracy * 100).toFixed(1)}%</div>
+            <div className="flex items-center mt-2">
               {accuracyChange > 0 ? (
-                <div className="text-xs text-green-500 flex items-center">
+                <div className="text-xs bg-green-100 dark:bg-green-900/60 text-green-700 dark:text-green-300 px-2 py-1 rounded-full flex items-center">
                   <ArrowUp className="h-3 w-3 mr-1" />
-                  {accuracyChangePercent.toFixed(1)}%
+                  +{accuracyChangePercent.toFixed(1)}%
                 </div>
               ) : (
-                <div className="text-xs text-red-500 flex items-center">
+                <div className="text-xs bg-red-100 dark:bg-red-900/60 text-red-700 dark:text-red-300 px-2 py-1 rounded-full flex items-center">
                   <ArrowDown className="h-3 w-3 mr-1" />
                   {Math.abs(accuracyChangePercent).toFixed(1)}%
                 </div>
               )}
-              <span className="text-xs text-muted-foreground ml-1">vs previous period</span>
+              <span className="text-xs text-muted-foreground ml-2">vs previous period</span>
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="overflow-hidden border-none shadow-md bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Training Time</CardTitle>
-            <Clock className="h-4 w-4 text-muted-foreground" />
+            <div className="h-8 w-8 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
+              <Clock className="h-4 w-4 text-green-700 dark:text-green-300" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{latestTrainingTime.toFixed(1)} hrs</div>
-            <div className="flex items-center mt-1">
+            <div className="text-3xl font-bold text-green-700 dark:text-green-300">{latestTrainingTime.toFixed(1)} hrs</div>
+            <div className="flex items-center mt-2">
               {trainingTimeChange > 0 ? (
-                <div className="text-xs text-green-500 flex items-center">
+                <div className="text-xs bg-green-100 dark:bg-green-900/60 text-green-700 dark:text-green-300 px-2 py-1 rounded-full flex items-center">
                   <ArrowDown className="h-3 w-3 mr-1" />
-                  {trainingTimeChangePercent.toFixed(1)}%
+                  -{trainingTimeChangePercent.toFixed(1)}%
                 </div>
               ) : (
-                <div className="text-xs text-red-500 flex items-center">
+                <div className="text-xs bg-red-100 dark:bg-red-900/60 text-red-700 dark:text-red-300 px-2 py-1 rounded-full flex items-center">
                   <ArrowUp className="h-3 w-3 mr-1" />
-                  {Math.abs(trainingTimeChangePercent).toFixed(1)}%
+                  +{Math.abs(trainingTimeChangePercent).toFixed(1)}%
                 </div>
               )}
-              <span className="text-xs text-muted-foreground ml-1">vs previous period</span>
+              <span className="text-xs text-muted-foreground ml-2">vs previous period</span>
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="overflow-hidden border-none shadow-md bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-amber-950/30 dark:to-yellow-950/30">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Inference Speed</CardTitle>
-            <Zap className="h-4 w-4 text-muted-foreground" />
+            <div className="h-8 w-8 rounded-full bg-amber-100 dark:bg-amber-900 flex items-center justify-center">
+              <Zap className="h-4 w-4 text-amber-700 dark:text-amber-300" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{latestInferenceSpeed.toFixed(0)} ms</div>
-            <div className="flex items-center mt-1">
+            <div className="text-3xl font-bold text-amber-700 dark:text-amber-300">{latestInferenceSpeed.toFixed(0)} ms</div>
+            <div className="flex items-center mt-2">
               {inferenceSpeedChange > 0 ? (
-                <div className="text-xs text-green-500 flex items-center">
+                <div className="text-xs bg-green-100 dark:bg-green-900/60 text-green-700 dark:text-green-300 px-2 py-1 rounded-full flex items-center">
                   <ArrowDown className="h-3 w-3 mr-1" />
-                  {inferenceSpeedChangePercent.toFixed(1)}%
+                  -{inferenceSpeedChangePercent.toFixed(1)}%
                 </div>
               ) : (
-                <div className="text-xs text-red-500 flex items-center">
+                <div className="text-xs bg-red-100 dark:bg-red-900/60 text-red-700 dark:text-red-300 px-2 py-1 rounded-full flex items-center">
                   <ArrowUp className="h-3 w-3 mr-1" />
-                  {Math.abs(inferenceSpeedChangePercent).toFixed(1)}%
+                  +{Math.abs(inferenceSpeedChangePercent).toFixed(1)}%
                 </div>
               )}
-              <span className="text-xs text-muted-foreground ml-1">vs previous period</span>
+              <span className="text-xs text-muted-foreground ml-2">vs previous period</span>
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="overflow-hidden border-none shadow-md bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Experiment Success</CardTitle>
-            <FlaskConical className="h-4 w-4 text-muted-foreground" />
+            <div className="h-8 w-8 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center">
+              <FlaskConical className="h-4 w-4 text-purple-700 dark:text-purple-300" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{successRate.toFixed(0)}%</div>
-            <div className="flex items-center mt-1">
-              <div className="text-xs text-muted-foreground">
+            <div className="text-3xl font-bold text-purple-700 dark:text-purple-300">{successRate.toFixed(0)}%</div>
+            <div className="flex items-center mt-2">
+              <div className="text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-full">
                 {completedExperiments} of {totalExperiments} experiments completed
               </div>
             </div>
@@ -203,12 +211,12 @@ export function AnalyticsDashboard() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <Card className="lg:col-span-4">
-          <CardHeader>
+        <Card className="lg:col-span-4 border-none shadow-md overflow-hidden">
+          <CardHeader className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-900/50 dark:to-slate-800/50">
             <CardTitle>Model Performance Trends</CardTitle>
             <CardDescription>Accuracy, training time, and inference speed over time</CardDescription>
           </CardHeader>
-          <CardContent className="h-[350px]">
+          <CardContent className="h-[350px] pt-6">
             <div className="flex h-full flex-col">
               <div className="flex items-center justify-between pb-4">
                 <div className="space-y-1">
@@ -223,68 +231,120 @@ export function AnalyticsDashboard() {
                           : "All time"}
                   </p>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   <div className="flex items-center">
-                    <div className="mr-1 h-2 w-2 rounded-full bg-primary"></div>
+                    <div className="mr-1.5 h-3 w-3 rounded-full bg-blue-500"></div>
                     <span className="text-xs text-muted-foreground">Accuracy</span>
                   </div>
                   <div className="flex items-center">
-                    <div className="mr-1 h-2 w-2 rounded-full bg-green-500"></div>
+                    <div className="mr-1.5 h-3 w-3 rounded-full bg-green-500"></div>
                     <span className="text-xs text-muted-foreground">Training Time</span>
                   </div>
                   <div className="flex items-center">
-                    <div className="mr-1 h-2 w-2 rounded-full bg-yellow-500"></div>
+                    <div className="mr-1.5 h-3 w-3 rounded-full bg-amber-500"></div>
                     <span className="text-xs text-muted-foreground">Inference Speed</span>
                   </div>
                 </div>
               </div>
               <div className="flex-1 relative">
+                {/* Chart grid lines */}
+                <div className="absolute inset-0 flex flex-col justify-between">
+                  {[0, 1, 2, 3, 4].map((i) => (
+                    <div key={i} className="w-full h-px bg-gray-100 dark:bg-gray-800" />
+                  ))}
+                </div>
+
                 {/* Line chart visualization */}
                 <div className="absolute inset-0 flex items-end">
                   <div className="w-full grid grid-cols-5 h-full">
                     {mockPerformanceMetrics.modelAccuracy.map((point, index) => (
-                      <div key={index} className="flex flex-col justify-end h-full relative">
-                        {/* Accuracy line */}
-                        <div className="absolute bottom-0 left-1/2 w-full h-[1px] bg-muted"></div>
+                      <div key={index} className="flex flex-col justify-end h-full relative group">
+                        {/* Accuracy line and point */}
                         <div
-                          className="absolute bottom-0 left-1/2 w-2 h-2 rounded-full bg-primary transform -translate-x-1/2"
+                          className="absolute bottom-0 left-1/2 w-3 h-3 rounded-full bg-blue-500 transform -translate-x-1/2 z-10 transition-all duration-300 group-hover:w-4 group-hover:h-4 group-hover:shadow-md"
                           style={{ bottom: `${point.value * 100 * 3}px` }}
-                        ></div>
+                        >
+                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-white dark:bg-gray-800 shadow-md rounded-md px-2 py-1 text-xs whitespace-nowrap z-20">
+                            Accuracy: {(point.value * 100).toFixed(1)}%
+                          </div>
+                        </div>
                         {index > 0 && (
                           <div
-                            className="absolute bottom-0 left-0 h-[1px] bg-primary"
+                            className="absolute h-0.5 bg-blue-500 z-0"
                             style={{
-                              bottom: `${(point.value * 100 * 3 + mockPerformanceMetrics.modelAccuracy[index - 1].value * 100 * 3) / 2}px`,
+                              bottom: `${mockPerformanceMetrics.modelAccuracy[index - 1].value * 100 * 3}px`,
+                              left: "-50%",
                               width: "100%",
                               transform: `rotate(${Math.atan2(
-                                (mockPerformanceMetrics.modelAccuracy[index].value -
-                                  mockPerformanceMetrics.modelAccuracy[index - 1].value) *
-                                100 *
-                                3,
-                                100,
+                                (point.value - mockPerformanceMetrics.modelAccuracy[index - 1].value) * 100 * 3,
+                                100
                               )}rad)`,
-                              transformOrigin: "left",
+                              transformOrigin: "right",
                             }}
                           ></div>
                         )}
 
-                        {/* Training time line (inverted scale) */}
+                        {/* Training time point */}
                         {mockPerformanceMetrics?.trainingTime && mockPerformanceMetrics.trainingTime[index] && (
-                          <div
-                            className="absolute bottom-0 left-1/2 w-2 h-2 rounded-full bg-green-500 transform -translate-x-1/2"
-                            style={{ bottom: `${(30 - mockPerformanceMetrics.trainingTime[index].value * 10) * 10}px` }}
-                          ></div>
+                          <>
+                            <div
+                              className="absolute bottom-0 left-1/2 w-3 h-3 rounded-full bg-green-500 transform -translate-x-1/2 z-10 transition-all duration-300 group-hover:w-4 group-hover:h-4 group-hover:shadow-md"
+                              style={{ bottom: `${(30 - mockPerformanceMetrics.trainingTime[index].value * 10) * 10}px` }}
+                            >
+                              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-white dark:bg-gray-800 shadow-md rounded-md px-2 py-1 text-xs whitespace-nowrap z-20">
+                                Training: {mockPerformanceMetrics.trainingTime[index].value.toFixed(1)} hrs
+                              </div>
+                            </div>
+                            {index > 0 && (
+                              <div
+                                className="absolute h-0.5 bg-green-500 z-0"
+                                style={{
+                                  bottom: `${(30 - mockPerformanceMetrics.trainingTime[index - 1].value * 10) * 10}px`,
+                                  left: "-50%",
+                                  width: "100%",
+                                  transform: `rotate(${Math.atan2(
+                                    (30 - mockPerformanceMetrics.trainingTime[index].value * 10) * 10 -
+                                    (30 - mockPerformanceMetrics.trainingTime[index - 1].value * 10) * 10,
+                                    100
+                                  )}rad)`,
+                                  transformOrigin: "right",
+                                }}
+                              ></div>
+                            )}
+                          </>
                         )}
 
-                        {/* Inference speed line (inverted scale) */}
+                        {/* Inference speed point */}
                         {mockPerformanceMetrics?.inferenceSpeed && mockPerformanceMetrics.inferenceSpeed[index] && (
-                          <div
-                            className="absolute bottom-0 left-1/2 w-2 h-2 rounded-full bg-yellow-500 transform -translate-x-1/2"
-                            style={{ bottom: `${(150 - mockPerformanceMetrics.inferenceSpeed[index].value) * 2}px` }}
-                          ></div>
+                          <>
+                            <div
+                              className="absolute bottom-0 left-1/2 w-3 h-3 rounded-full bg-amber-500 transform -translate-x-1/2 z-10 transition-all duration-300 group-hover:w-4 group-hover:h-4 group-hover:shadow-md"
+                              style={{ bottom: `${(150 - mockPerformanceMetrics.inferenceSpeed[index].value) * 2}px` }}
+                            >
+                              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-white dark:bg-gray-800 shadow-md rounded-md px-2 py-1 text-xs whitespace-nowrap z-20">
+                                Inference: {mockPerformanceMetrics.inferenceSpeed[index].value} ms
+                              </div>
+                            </div>
+                            {index > 0 && (
+                              <div
+                                className="absolute h-0.5 bg-amber-500 z-0"
+                                style={{
+                                  bottom: `${(150 - mockPerformanceMetrics.inferenceSpeed[index - 1].value) * 2}px`,
+                                  left: "-50%",
+                                  width: "100%",
+                                  transform: `rotate(${Math.atan2(
+                                    (150 - mockPerformanceMetrics.inferenceSpeed[index].value) * 2 -
+                                    (150 - mockPerformanceMetrics.inferenceSpeed[index - 1].value) * 2,
+                                    100
+                                  )}rad)`,
+                                  transformOrigin: "right",
+                                }}
+                              ></div>
+                            )}
+                          </>
                         )}
 
-                        <div className="text-xs text-muted-foreground text-center absolute bottom-[-20px] left-0 right-0">
+                        <div className="text-xs text-muted-foreground text-center absolute bottom-[-24px] left-0 right-0">
                           {new Date(point.date).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
                         </div>
                       </div>
