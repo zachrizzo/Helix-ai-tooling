@@ -92,7 +92,7 @@ export function DatasetExplorer() {
             <CardContent>
               <div className="space-y-4">
                 <div className="flex flex-wrap gap-2">
-                  {dataset.tags.map((tag) => (
+                  {dataset.tags && dataset.tags.map((tag) => (
                     <div
                       key={tag}
                       className="bg-muted text-muted-foreground text-xs px-2 py-1 rounded-full flex items-center"

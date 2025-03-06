@@ -429,26 +429,27 @@ export default function AnnotationWorkspace() {
     }
 
     // Draw existing annotations for current frame
-    const currentFrameAnnotations = annotations.filter(
-      (ann) =>
-        ann.frame === currentFrame &&
-        (!filterLabel || ann.label === filterLabel) &&
-        (!searchAnnotation || ann.id.includes(searchAnnotation) || ann.label.includes(searchAnnotation)),
-    )
-    currentFrameAnnotations.forEach((ann) => {
-      const { x, y, width, height } = ann.coordinates
+    annotations
+      .filter(
+        (ann) =>
+          ann.frame === currentFrame &&
+          (!filterLabel || ann.label === filterLabel) &&
+          (!searchAnnotation || ann.id.includes(searchAnnotation) || ann.label.includes(searchAnnotation)),
+      )
+      .forEach((ann) => {
+        const { x, y, width, height } = ann.coordinates
 
-      ctx.strokeStyle = selectedAnnotation === ann.id ? "#ff3e00" : getColorForLabel(ann.label)
-      ctx.lineWidth = 2
-      ctx.strokeRect(x, y, width, height)
+        ctx.strokeStyle = selectedAnnotation === ann.id ? "#ff3e00" : getColorForLabel(ann.label)
+        ctx.lineWidth = 2
+        ctx.strokeRect(x, y, width, height)
 
-      // Draw label
-      ctx.fillStyle = selectedAnnotation === ann.id ? "#ff3e00" : getColorForLabel(ann.label)
-      ctx.fillRect(x, y - 20, 80, 20)
-      ctx.fillStyle = "white"
-      ctx.font = "12px sans-serif"
-      ctx.fillText(ann.label, x + 5, y - 5)
-    })
+        // Draw label
+        ctx.fillStyle = selectedAnnotation === ann.id ? "#ff3e00" : getColorForLabel(ann.label)
+        ctx.fillRect(x, y - 20, 80, 20)
+        ctx.fillStyle = "white"
+        ctx.font = "12px sans-serif"
+        ctx.fillText(ann.label, x + 5, y - 5)
+      })
 
     // Draw current annotation being created
     if (isDrawing && newAnnotation) {

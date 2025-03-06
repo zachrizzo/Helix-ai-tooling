@@ -25,22 +25,38 @@ export function AnalyticsDashboard() {
   const [timeRange, setTimeRange] = useState<"7d" | "30d" | "90d" | "all">("30d")
 
   // Calculate summary metrics
-  const latestAccuracy = mockPerformanceMetrics.modelAccuracy[mockPerformanceMetrics.modelAccuracy.length - 1].value
-  const previousAccuracy = mockPerformanceMetrics.modelAccuracy[mockPerformanceMetrics.modelAccuracy.length - 2].value
+  const latestAccuracy =
+    mockPerformanceMetrics?.modelAccuracy && mockPerformanceMetrics.modelAccuracy.length > 0
+      ? mockPerformanceMetrics.modelAccuracy[mockPerformanceMetrics.modelAccuracy.length - 1].value
+      : 0
+  const previousAccuracy =
+    mockPerformanceMetrics?.modelAccuracy && mockPerformanceMetrics.modelAccuracy.length > 1
+      ? mockPerformanceMetrics.modelAccuracy[mockPerformanceMetrics.modelAccuracy.length - 2].value
+      : 0
   const accuracyChange = latestAccuracy - previousAccuracy
-  const accuracyChangePercent = (accuracyChange / previousAccuracy) * 100
+  const accuracyChangePercent = previousAccuracy ? (accuracyChange / previousAccuracy) * 100 : 0
 
-  const latestTrainingTime = mockPerformanceMetrics.trainingTime[mockPerformanceMetrics.trainingTime.length - 1].value
-  const previousTrainingTime = mockPerformanceMetrics.trainingTime[mockPerformanceMetrics.trainingTime.length - 2].value
+  const latestTrainingTime =
+    mockPerformanceMetrics?.trainingTime && mockPerformanceMetrics.trainingTime.length > 0
+      ? mockPerformanceMetrics.trainingTime[mockPerformanceMetrics.trainingTime.length - 1].value
+      : 0
+  const previousTrainingTime =
+    mockPerformanceMetrics?.trainingTime && mockPerformanceMetrics.trainingTime.length > 1
+      ? mockPerformanceMetrics.trainingTime[mockPerformanceMetrics.trainingTime.length - 2].value
+      : 0
   const trainingTimeChange = previousTrainingTime - latestTrainingTime
-  const trainingTimeChangePercent = (trainingTimeChange / previousTrainingTime) * 100
+  const trainingTimeChangePercent = previousTrainingTime ? (trainingTimeChange / previousTrainingTime) * 100 : 0
 
   const latestInferenceSpeed =
-    mockPerformanceMetrics.inferenceSpeed[mockPerformanceMetrics.inferenceSpeed.length - 1].value
+    mockPerformanceMetrics?.inferenceSpeed && mockPerformanceMetrics.inferenceSpeed.length > 0
+      ? mockPerformanceMetrics.inferenceSpeed[mockPerformanceMetrics.inferenceSpeed.length - 1].value
+      : 0
   const previousInferenceSpeed =
-    mockPerformanceMetrics.inferenceSpeed[mockPerformanceMetrics.inferenceSpeed.length - 2].value
+    mockPerformanceMetrics?.inferenceSpeed && mockPerformanceMetrics.inferenceSpeed.length > 1
+      ? mockPerformanceMetrics.inferenceSpeed[mockPerformanceMetrics.inferenceSpeed.length - 2].value
+      : 0
   const inferenceSpeedChange = previousInferenceSpeed - latestInferenceSpeed
-  const inferenceSpeedChangePercent = (inferenceSpeedChange / previousInferenceSpeed) * 100
+  const inferenceSpeedChangePercent = previousInferenceSpeed ? (inferenceSpeedChange / previousInferenceSpeed) * 100 : 0
 
   // Calculate experiment success rate
   const completedExperiments = mockExperiments.filter((exp) => exp.status === "Completed").length
@@ -243,8 +259,8 @@ export function AnalyticsDashboard() {
                               transform: `rotate(${Math.atan2(
                                 (mockPerformanceMetrics.modelAccuracy[index].value -
                                   mockPerformanceMetrics.modelAccuracy[index - 1].value) *
-                                  100 *
-                                  3,
+                                100 *
+                                3,
                                 100,
                               )}rad)`,
                               transformOrigin: "left",
@@ -253,16 +269,20 @@ export function AnalyticsDashboard() {
                         )}
 
                         {/* Training time line (inverted scale) */}
-                        <div
-                          className="absolute bottom-0 left-1/2 w-2 h-2 rounded-full bg-green-500 transform -translate-x-1/2"
-                          style={{ bottom: `${(30 - point.value * 10) * 10}px` }}
-                        ></div>
+                        {mockPerformanceMetrics?.trainingTime && mockPerformanceMetrics.trainingTime[index] && (
+                          <div
+                            className="absolute bottom-0 left-1/2 w-2 h-2 rounded-full bg-green-500 transform -translate-x-1/2"
+                            style={{ bottom: `${(30 - mockPerformanceMetrics.trainingTime[index].value * 10) * 10}px` }}
+                          ></div>
+                        )}
 
                         {/* Inference speed line (inverted scale) */}
-                        <div
-                          className="absolute bottom-0 left-1/2 w-2 h-2 rounded-full bg-yellow-500 transform -translate-x-1/2"
-                          style={{ bottom: `${(150 - mockPerformanceMetrics.inferenceSpeed[index].value) * 2}px` }}
-                        ></div>
+                        {mockPerformanceMetrics?.inferenceSpeed && mockPerformanceMetrics.inferenceSpeed[index] && (
+                          <div
+                            className="absolute bottom-0 left-1/2 w-2 h-2 rounded-full bg-yellow-500 transform -translate-x-1/2"
+                            style={{ bottom: `${(150 - mockPerformanceMetrics.inferenceSpeed[index].value) * 2}px` }}
+                          ></div>
+                        )}
 
                         <div className="text-xs text-muted-foreground text-center absolute bottom-[-20px] left-0 right-0">
                           {new Date(point.date).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
@@ -386,15 +406,14 @@ export function AnalyticsDashboard() {
               {mockDatasets.map((dataset, index) => (
                 <div key={dataset.id} className="flex items-center">
                   <div
-                    className={`mr-2 h-3 w-3 rounded-full ${
-                      index === 0
-                        ? "bg-blue-500"
-                        : index === 1
-                          ? "bg-green-500"
-                          : index === 2
-                            ? "bg-yellow-500"
-                            : "bg-purple-500"
-                    }`}
+                    className={`mr-2 h-3 w-3 rounded-full ${index === 0
+                      ? "bg-blue-500"
+                      : index === 1
+                        ? "bg-green-500"
+                        : index === 2
+                          ? "bg-yellow-500"
+                          : "bg-purple-500"
+                      }`}
                   ></div>
                   <div className="space-y-1">
                     <p className="text-xs font-medium leading-none">{dataset.name}</p>
